@@ -1,0 +1,19 @@
+name: default
+
+estimator:
+  _target_: pytorch_tabular.config.ModelConfig
+  task: classification
+  learning_rate: 0.001
+  loss: CrossEntropyLoss
+  metrics:
+    - accuracy
+    - auroc
+    - average_precision
+  metrics_prob_input:
+    - False
+    - True
+    - True
+  metrics_params:
+    - num_classes: 2
+    - num_classes: 2
+    - num_classes: 2

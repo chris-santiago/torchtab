@@ -1,0 +1,72 @@
+data:
+  cfg:
+    _target_: pytorch_tabular.config.DataConfig
+    target: Cover_Type
+    continuous_cols: ${features.num}
+    categorical_cols: ${features.cat}
+    date_columns: ${features.datetime}
+    encode_date_columns: true
+    validation_split: 0.1
+    continuous_feature_transform: null
+    normalize_continuous_features: true
+    num_workers: 4
+    handle_unknown_categories: true
+    handle_missing_values: true
+  name: cover-type
+features:
+  name: cover-type
+  num:
+  - Elevation
+  - Aspect
+  - Slope
+  - Horizontal_Distance_To_Hydrology
+  - Vertical_Distance_To_Hydrology
+  - Horizontal_Distance_To_Roadways
+  - Hillshade_9am
+  - Hillshade_Noon
+  - Hillshade_3pm
+  - Horizontal_Distance_To_Fire_Points
+  cat:
+  - Wilderness_Area
+  - Soil_Type
+  datetime: null
+model:
+  name: default
+  estimator:
+    _target_: pytorch_tabular.config.ModelConfig
+    task: classification
+    learning_rate: 0.001
+    loss: CrossEntropyLoss
+    metrics:
+    - Accuracy
+    - AUROC
+    - AveragePrecision
+    metrics_prob_input:
+    - false
+    - true
+    - true
+    metrics_params:
+    - num_classes: 2
+    - num_classes: 2
+    - num_classes: 2
+optimizer:
+  _target_: pytorch_tabular.config.OptimizerConfig
+  lr_scheduler: ReduceLROnPlateau
+trainer:
+  _target_: pytorch_tabular.config.TrainerConfig
+  batch_size: 256
+  fast_dev_run: false
+  max_epochs: 100
+  accelerator: mps
+  auto_lr_find: true
+  early_stopping: valid_loss
+  early_stopping_min_delta: 0.001
+  early_stopping_patience: 5
+  checkpoints: valid_loss
+  load_best: true
+tabular_model:
+  _target_: pytorch_tabular.tabular_model.TabularModel
+  data_config: ${data}
+  model_config: ${model.estimator}
+  optimizer_config: ${optimizer}
+  trainer_config: ${trainer}

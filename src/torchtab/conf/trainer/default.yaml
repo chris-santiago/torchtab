@@ -1,0 +1,11 @@
+_target_: pytorch_tabular.config.TrainerConfig
+batch_size: 256
+fast_dev_run: False
+max_epochs: 100
+accelerator: mps
+auto_lr_find: True
+early_stopping: valid_loss
+early_stopping_min_delta: 0.001
+early_stopping_patience: 5
+checkpoints: valid_loss
+load_best: True

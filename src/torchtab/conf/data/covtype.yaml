@@ -1,0 +1,10 @@
+defaults:
+  - default
+
+name: cover-type
+
+config:
+  target: [Cover_Type]
+
+#dataloader:
+#  _target_: torchtab.utils.covtype_data_loader

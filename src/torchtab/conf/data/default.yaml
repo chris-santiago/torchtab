@@ -1,0 +1,13 @@
+config:
+  _target_: pytorch_tabular.config.DataConfig
+  target: null
+  continuous_cols: ${features.num}
+  categorical_cols: ${features.cat}
+  date_columns: ${features.datetime}
+  encode_date_columns: True
+  validation_split: 0.10
+  continuous_feature_transform: null
+  normalize_continuous_features: True
+  num_workers: 4
+  handle_unknown_categories: True
+  handle_missing_values: True

@@ -1,0 +1,14 @@
+defaults:
+  - default
+
+name: tabnet
+
+estimator:
+  _target_: pytorch_tabular.models.TabNetModelConfig
+  head_config:
+    layers: 128-128
+    dropout: 0.1
+  metrics_params:
+    - num_classes: 7
+    - num_classes: 7
+    - num_classes: 7
